@@ -10,7 +10,7 @@ router.post('/text', async (req, res) => {
   try {
     const { text, activeChatId } = req.body;
 
-    const response = await openai.createChatCompletion({
+    const response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       messages: [
         { role: "system", content: "You are a helpful assistant." },
@@ -33,7 +33,7 @@ router.post('/text', async (req, res) => {
     );
 
     console.log('text', text);
-    res.status(200).json({ text: response.data.choices[0].message.conten });
+    res.status(200).json({ text: response.data.choices[0].message.content });
   } catch (err) {
     console.log(err);
     res.status(500).json({ error: err });
@@ -44,7 +44,7 @@ router.post("/code", async (req, res) => {
   try {
     const { text, activeChatId } = req.body;
 
-    const response = await openai.createChatCompletion({
+    const response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       messages: [
         {
