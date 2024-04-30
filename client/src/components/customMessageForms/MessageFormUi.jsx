@@ -1,7 +1,11 @@
 /* eslint-disable react/prop-types */
-import { PaperClipIcon, XMarkIcon, PaperAirplaneIcon } from '@heroicons/react/24/solid';
-import { useState } from 'react'
-import Dropzone from 'react-dropzone';
+import {
+  PaperAirplaneIcon,
+  PaperClipIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/solid";
+import { useState } from "react";
+import Dropzone from "react-dropzone";
 
 const MessageFormUi = ({
   setAttachment,
@@ -11,13 +15,18 @@ const MessageFormUi = ({
   appendText,
   handleKeyDown,
 }) => {
-  const [preview, setPreview] = useState('');
+  const [preview, setPreview] = useState("");
 
   return (
     <div className="message-form-container">
       {preview && (
         <div className="message-form-preview">
-          <img className="message-form-preview-image" src={preview} onLoad={() => URL.revokeObjectURL(preview)} />
+          <img
+            alt="message-form-preview"
+            className="message-form-preview-image"
+            src={preview}
+            onLoad={() => URL.revokeObjectURL(preview)}
+          />
           <XMarkIcon
             className="message-form-icon-x"
             onClick={() => {
@@ -35,7 +44,7 @@ const MessageFormUi = ({
             value={message}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
-            placeholder="Send a message ..."
+            placeholder="Send a message..."
           />
           {appendText && (
             <input
@@ -53,10 +62,10 @@ const MessageFormUi = ({
             noClick={true}
             onDrop={(acceptedFiles) => {
               setAttachment(acceptedFiles[0]);
-              setPreview(URL.createObjectURL(acceptedFiles[0]))
+              setPreview(URL.createObjectURL(acceptedFiles[0]));
             }}
           >
-            {({ getRootProps, getInputProps, open}) => (
+            {({ getRootProps, getInputProps, open }) => (
               <div {...getRootProps()}>
                 <input {...getInputProps()} />
                 <PaperClipIcon
@@ -72,13 +81,13 @@ const MessageFormUi = ({
             className="message-form-icon-airplane"
             onClick={() => {
               setPreview("");
-              handleSubmit()
+              handleSubmit();
             }}
           />
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default MessageFormUi
+export default MessageFormUi;

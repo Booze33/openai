@@ -18,11 +18,11 @@ router.post('/text', async (req, res) => {
         { role: "assistant", content: "The weather sucks today" },
       ],
     });
-    console.log('response.data', response.data);
+    // console.log('response.data', response.choices);
 
     await axios.post(
       `https://api.chatengine.io/chats/${activeChatId}/messages/`,
-      { text: response.data.choices[0].message.content },
+      { text: response.choices[0].message.content },
       {
         headers: {
           "Project-ID": process.env.PROJECT_ID,
@@ -32,8 +32,9 @@ router.post('/text', async (req, res) => {
       }
     );
 
-    console.log('text', text);
-    res.status(200).json({ text: response.data.choices[0].message.content });
+    // console.log('text', text);
+    // console.log(activeChatId);
+    res.status(200).json({ text: response.choices[0].message.content });
   } catch (err) {
     console.log(err);
     res.status(500).json({ error: err });
@@ -58,7 +59,7 @@ router.post("/code", async (req, res) => {
 
     await axios.post(
       `https://api.chatengine.io/chats/${activeChatId}/messages/`,
-      { text: response.data.choices[0].message.content },
+      { text: response.choices[0].message.content },
       {
         headers: {
           "Project-ID": process.env.PROJECT_ID,
@@ -68,7 +69,7 @@ router.post("/code", async (req, res) => {
       }
     );
 
-    res.status(200).json({ text: response.data.choices[0].message.content });
+    res.status(200).json({ text: response.choices[0].message.content });
   } catch (error) {
     console.error("error", error.response.data.error);
     res.status(500).json({ error: error.message });
@@ -91,7 +92,7 @@ router.post("/assist", async (req, res) => {
       ],
     });
 
-    res.status(200).json({ text: response.data.choices[0].message.content });
+    res.status(200).json({ text: response.choices[0].message.content });
   } catch (error) {
     console.error("error", error);
     res.status(500).json({ error: error.message });
